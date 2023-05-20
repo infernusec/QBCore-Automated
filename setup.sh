@@ -233,4 +233,4 @@ echo -e "${White}= = = = = = [ ${Red} I M P O R T A N T   T O   R E A D  ! ! ! $
 echo -e "${Red} For security reasons, You are not be able to connect as ${White}root${Red} user anymore!"
 echo -e "${Red} at the next time you need to login as user ${White}$UNIX_USER${Red}"
 echo -e "${Cyan} To shutdown/restart your server, use systemd command, for Example: ${White}systemctl ${Green}start${White} qbcore.service${Red}"
-echo -e "${Cyan} The available options are: ${White}start/stop/enable/disable\n${Cyan}enable/disable - means that the service qbcore will automaticlly start when the is server power on."
+echo -e "${Cyan} The available options are: ${White}start/stop/enable/disable\n${Cyan}enable/disable - means that the service qbcore will automaticlly start when the is server power on.${Color_Off}"
