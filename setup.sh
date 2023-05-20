@@ -198,7 +198,7 @@ systemctl daemon-reload 1>/dev/null
 systemctl enable --now qbcore 1>/dev/null
 echo -e "${Green}[NOTICE]:${White} Starting QBCore service.."
 echo -e "${Green}[INFO]:${White} Waiting for QBCore.."
-sleep 2
+sleep 10
 JOURNALCTL_QBCORE=$(journalctl -u qbcore.service)
 txAdminToken=$(echo -e "$JOURNALCTL_QBCORE" | grep 'master' | tail -1 | rev | awk '{ print $1;}' | rev)
 txAdminUI=$(echo -e "$JOURNALCTL_QBCORE" | grep '┃' | grep 'http' | tail -1 | cut -d '┃' -f2 | awk '{ print $1; }')
