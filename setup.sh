@@ -202,9 +202,8 @@ systemctl enable --now qbcore 1>/dev/null
 echo -e "${Green}[NOTICE]:${White} Starting QBCore service.."
 echo -e "${Green}[INFO]:${White} Waiting for QBCore.."
 sleep 10
-JOURNALCTL_QBCORE=$(journalctl -u qbcore.service)
-txAdminToken=$(echo -e "$JOURNALCTL_QBCORE" | grep 'master' | tail -1 | rev | awk '{ print $1;}' | rev)
-txAdminUI=$(echo -e "$JOURNALCTL_QBCORE" | grep '┃' | grep 'http' | tail -1 | cut -d '┃' -f2 | awk '{ print $1; }')
+txAdminToken=$(journalctl -u qbcore.service | grep '    ┃' | tail -2 | head -1 | rev | awk '{ print $2 }' | rev)
+txAdminUI=$(journalctl -u qbcore.service | grep '┃' | grep 'http' | tail -1 | cut -d '┃' -f2 | awk '{ print $1; }')
 txAdminPort=$(echo -e "$txAdminUI" |  cut -d ':' -f3 | sed 's/\///g')
 txAdminIP=$(echo $txAdminUI | sed "s|http://||g;s|https://||g;s|/||g;" | cut -d ':' -f1)
 
