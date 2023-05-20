@@ -78,7 +78,10 @@ DB_USER="fivem"
 
 echo -e "${Cyan}[INFO]:${White} QBCore Automated Installer"
 echo -e "${Cyan}[INFO]:${White} Removing old packages & files & users.."
-
+SELINUX_STATE=$(cat /etc/selinux/config | grep 'SELINUX=' | grep -v '#')
+echo -e "${Cyan}[INFO]:${White} Disabling SELinux.."
+setenforce 0
+sed -i "s/$SELINUX_STATE/SELINUX=disabled/g" /etc/selinux/config
 
 
 remove_install() {
@@ -218,6 +221,9 @@ firewall-cmd --reload 1>/dev/null
 echo -e "${Green}[INFO]:${White} Securing OpenSSH Server.."
 sed -i "s|PermitRootLogin yes|PermitRootLogin no|g" /etc/ssh/sshd_config
 systemctl restart sshd 1>/dev/null
+
+echo -e "${Green}[INFO]:${White} Return Selinux to its original state.."
+sed -i "s|SELINUX=disabled|$SELINUX_STATE|g" /etc/selinux/config
 
 echo -e "${White}= = = = = = [ ${Green}Installation Completed${White} ] = = = = = ="
 echo -e "${Yellow}DB User: ${White}$DB_USER"
